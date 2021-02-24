@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>362</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,24 +18,69 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>30</y>
-      <width>411</width>
-      <height>281</height>
+      <y>20</y>
+      <width>361</width>
+      <height>261</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="question">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>SimSun</family>
+         <pointsize>24</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>TextLabel</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignHCenter|Qt::AlignTop</set>
+       </property>
+       <property name="margin">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="result">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <kerning>true</kerning>
+        </font>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignHCenter|Qt::AlignTop</set>
+       </property>
+       <property name="margin">
+        <number>10</number>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="option_1">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -43,6 +88,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="option_2">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -50,6 +100,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="option_3">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -57,47 +112,64 @@
      </item>
      <item>
       <widget class="QPushButton" name="option_4">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="result">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="nextq">
-       <property name="acceptDrops">
-        <bool>false</bool>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="inputMethodHints">
-        <set>Qt::ImhHiddenText</set>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>PushButton</string>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-       <property name="default">
-        <bool>false</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
        </property>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="nextq">
+    <property name="geometry">
+     <rect>
+      <x>1</x>
+      <y>290</y>
+      <width>359</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhHiddenText</set>
+    </property>
+    <property name="text">
+     <string>Следующий</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>20</y>
+      <width>361</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -105,7 +177,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>362</width>
      <height>22</height>
     </rect>
    </property>
