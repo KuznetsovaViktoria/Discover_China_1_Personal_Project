@@ -37,22 +37,17 @@ class mywindow(QMainWindow):
         self.ui.centralwidget.setStyleSheet('background: white')
         self.ui.question.adjustSize()
         self.ui.result.adjustSize()
-        self.ui.verticalLayoutWidget_2.hide()
 
-        exitAction = QAction('Выход', self)
+        self.ui.choose_mode.addItem("Choose pinyin")
+
+        exitAction = QAction('Exit', self)
         exitAction.triggered.connect(qApp.quit)
 
-        """self.toolbar = self.addToolBar('Выход')
-        self.toolbar.addAction(exitAction)
-        self.toolbar.setMovable(False)
-        self.toolbar_1 = self.addToolBar('На главную')
-        self.toolbar_1.addAction(self.hide_everything())
-        self.toolbar_1.setMovable(False)"""
         self.toolbar = QToolBar()
         self.toolbar.setMovable(False)
         self.exit_btn = QToolButton()
-        self.exit_btn.setText("На главную")
-        self.exit_btn.clicked.connect(self.hide_everything)
+        self.exit_btn.setText("Main menu")
+        self.exit_btn.clicked.connect(self.beginning)
         self.toolbar.addAction(exitAction)
         self.toolbar.addWidget(self.exit_btn)
         self.addToolBar(self.toolbar)
@@ -62,28 +57,39 @@ class mywindow(QMainWindow):
         self.ui.option_3.clicked.connect(self.choosed_option_3)
         self.ui.option_4.clicked.connect(self.choosed_option_4)
         self.ui.nextq.clicked.connect(self.new_question)
+        self.ui.play_btn.clicked.connect(self.start_game)
 
-        self.make_all_btns_white_and_clear_labels()
-        self.new_question()
+        self.beginning()
         self.setWindowTitle("DC")
         self.resize(362, 450)
         self.resized.connect(self.resizing)
+
+    def beginning(self):
+        self.hide_question()
+        self.ui.formLayoutWidget_2.show()  # main_menu_layout
+
+    def start_game(self):
+        self.unit = int(self.ui.choose_unit.value()) - 1
+        self.ui.formLayoutWidget_2.hide()   #main_menu_layout
+        self.ui.verticalLayoutWidget.show() #choose_layout
+        self.new_question()
 
     def resizeEvent(self, event):
         self.resized.emit()
         return super(mywindow, self).resizeEvent(event)
 
     def resizing(self):
-        self.ui.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 20, self.width(), 261))
+        self.ui.choose_layout.setGeometry(QtCore.QRect(0, 20, self.width(), 261))
         self.ui.nextq.setFixedWidth(self.width())
+        self.ui.main_menu_layout.setGeometry(QtCore.QRect(0, 20, self.width(), 261))
 
 
-    def hide_everything(self):
+    def hide_question(self):
         self.ui.verticalLayoutWidget.hide()
         self.ui.nextq.hide()
 
     def make_all_btns_white_and_clear_labels(self):
-        self.ui.verticalLayoutWidget.show()
+        self.ui.verticalLayoutWidget.show() #choose_layout
         self.ui.option_1.setStyleSheet('background: #c8c8c8; border: 1px solid #c8c8c8;padding: 6px;')
         self.ui.option_2.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 6px;')
         self.ui.option_3.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 6px;')

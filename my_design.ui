@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>362</width>
+    <width>361</width>
     <height>450</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
       <height>261</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="choose_layout">
      <item>
       <widget class="QLabel" name="question">
        <property name="minimumSize">
@@ -148,7 +148,7 @@
      <set>Qt::ImhHiddenText</set>
     </property>
     <property name="text">
-     <string>Следующий</string>
+     <string>Next</string>
     </property>
     <property name="autoDefault">
      <bool>false</bool>
@@ -160,7 +160,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
+   <widget class="QWidget" name="formLayoutWidget_2">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -169,7 +169,48 @@
       <height>331</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2"/>
+    <layout class="QFormLayout" name="main_menu_layout">
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="choose_unit">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>12</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_mode">
+       <property name="text">
+        <string>Game mode:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="choose_mode"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="play_btn">
+       <property name="text">
+        <string>Play</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_unit">
+       <property name="text">
+        <string>Unit:             </string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -177,7 +218,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>362</width>
+     <width>361</width>
      <height>22</height>
     </rect>
    </property>
