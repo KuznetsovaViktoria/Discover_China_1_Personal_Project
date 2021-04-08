@@ -9,6 +9,7 @@ import openpyxl
 from PyQt5.QtWidgets import *
 from functools import partial
 from time import *
+from threading import Timer
 
 
 def start_excel():
@@ -180,11 +181,14 @@ class mywindow(QMainWindow):
         else:
             self.pairs_btn_list[a].setStyleSheet('background: red;border: 1px solid red;padding: 6px;')
             self.pairs_btn_list[b].setStyleSheet('background: red;border: 1px solid red;padding: 6px;')
-            """self.pairs_btn_list[a].setStyleSheet('background: #c8c8c8;border: 1px solid '
-                                                                              '#c8c8c8;padding: 6px;')
-            self.pairs_btn_list[b].setStyleSheet('background: #c8c8c8;border: 1px solid '
-                                                                              '#c8c8c8;padding: 6px;')"""
+            t = Timer(1, self.pair_mode_change_btn_color_to_white, args=[a, b], kwargs=None)
+            t.start()
+        if len(self.made_pairs) == 12:
+            self.ui.nextq.show()
 
+    def pair_mode_change_btn_color_to_white(self, *n):
+        for i in n:
+            self.pairs_btn_list[i].setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 6px;')
 
     def btn_pair_mode_been_clicked(self, n):
         if self.pair_mode_clicked_btns == []:
