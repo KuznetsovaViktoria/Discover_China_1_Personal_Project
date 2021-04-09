@@ -16,14 +16,14 @@ def start_excel():
     global sheets
     wb = openpyxl.load_workbook(filename="C:\Programming\Discover China\Discover China 1 all vocabulary.xlsx")
     sheets = [wb['unit 1'], wb['unit 2'], wb['unit 3'], wb['unit 4'], wb['unit 5'], wb['unit 6'],
-              wb['unit 7'], wb['unit 8'], wb['unit 9'], wb['unit 10'], wb['unit 11'], wb['unit 12']]
+              wb['unit 7'], wb['unit 8'], wb['unit 9'], wb['unit 10'], wb['unit 11'], wb['unit 12'], wb['keys']]
 
 
 def get_random_cell(unit, q_col):
-    cell_num = str(randint(1, 50))
+    cell_num = str(randint(1, 150))
     cell = sheets[unit][q_col + cell_num]
     while cell.value == '' or cell.value is None:
-        cell_num = str(randint(1, 50))
+        cell_num = str(randint(1, 150))
         cell = sheets[unit][q_col + cell_num]
     return cell_num
 
@@ -49,7 +49,7 @@ class mywindow(QMainWindow):
         self.q_col = 'A'  # column in the excel table, from where we take questions, depends on the choosed mode
         self.a_col = 'B'  # column in the excel table, from where we take answers, depends on the choosed mode
         self.ex_col = 'C'  # the third column to show full information about the word after the right answer
-        self.ui.nextq.setStyleSheet('background: #86f353; border: 1px solid #86f353;padding: 6px;')
+        self.ui.nextq.setStyleSheet('background: #86f353; border: 1px solid #86f353;padding: 3px; margin: 2px;;')
         self.ui.centralwidget.setStyleSheet('background: white')
 
         self.ui.question.adjustSize()
@@ -59,6 +59,7 @@ class mywindow(QMainWindow):
         self.ui.choose_mode.addItem("Choose hieroglyph")
         self.ui.choose_mode.addItem("Choose translation")
         self.ui.choose_mode.addItem("Choose pairs")
+        self.ui.choose_mode.addItem("Choose keys")
 
         exitAction = QAction('Exit', self)
         exitAction.triggered.connect(qApp.quit)
@@ -92,7 +93,10 @@ class mywindow(QMainWindow):
         self.ui.formLayoutWidget_2.show()  # main_menu_layout
 
     def start_playing(self):
-        self.unit = int(self.ui.choose_unit.value()) - 1
+        if self.mode == "Choose keys":
+            self.unit = 12
+        else:
+            self.unit = int(self.ui.choose_unit.value()) - 1
         self.ui.formLayoutWidget_2.hide()  # main_menu_layout
         if self.mode == "Choose pairs":
             self.ui.gridLayoutWidget.show() # pairs_layout
@@ -138,6 +142,11 @@ class mywindow(QMainWindow):
             self.ex_col = 'B'
         elif mode == "Choose pairs":
             self.mode = "Choose pairs"
+        elif mode == "Choose keys":
+            self.mode = "Choose keys"
+            self.q_col = 'A'
+            self.a_col = 'C'
+            self.ex_col = 'B'
 
     def hide_question(self):
         self.ui.verticalLayoutWidget.hide()
@@ -174,13 +183,13 @@ class mywindow(QMainWindow):
         if [a, b] in self.right_ans or [b, a] in self.right_ans:
             self.made_pairs.append(a)
             self.made_pairs.append(b)
-            self.pairs_btn_list[a].setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 6px;')
-            self.pairs_btn_list[b].setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 6px;')
+            self.pairs_btn_list[a].setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
+            self.pairs_btn_list[b].setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
             self.pairs_btn_list[a].setEnabled(False)
             self.pairs_btn_list[b].setEnabled(False)
         else:
-            self.pairs_btn_list[a].setStyleSheet('background: red;border: 1px solid red;padding: 6px;')
-            self.pairs_btn_list[b].setStyleSheet('background: red;border: 1px solid red;padding: 6px;')
+            self.pairs_btn_list[a].setStyleSheet('background: red;border: 1px solid red;padding: 3px; margin: 2px;;')
+            self.pairs_btn_list[b].setStyleSheet('background: red;border: 1px solid red;padding: 3px; margin: 2px;;')
             t = Timer(1, self.pair_mode_change_btn_color_to_white, args=[a, b], kwargs=None)
             t.start()
         if len(self.made_pairs) == 12:
@@ -188,15 +197,15 @@ class mywindow(QMainWindow):
 
     def pair_mode_change_btn_color_to_white(self, *n):
         for i in n:
-            self.pairs_btn_list[i].setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 6px;')
+            self.pairs_btn_list[i].setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
 
     def btn_pair_mode_been_clicked(self, n):
         if self.pair_mode_clicked_btns == []:
             self.pair_mode_clicked_btns.append(n)
-            self.pairs_btn_list[n].setStyleSheet('background: #c8c8c8;border: 2px solid black;padding: 6px;')
+            self.pairs_btn_list[n].setStyleSheet('background: #c8c8c8;border: 2px solid black;padding: 3px; margin: 2px;;')
         elif self.pair_mode_clicked_btns == [n]:
             self.pair_mode_clicked_btns = []
-            self.pairs_btn_list[n].setStyleSheet('background: #c8c8c8;border: 2px solid #c8c8c8;padding: 6px;')
+            self.pairs_btn_list[n].setStyleSheet('background: #c8c8c8;border: 2px solid #c8c8c8;padding: 3px; margin: 2px;;')
         else:
             self.pair_mode_clicked_btns.append(n)
             self.check_pair()
@@ -207,10 +216,10 @@ class mywindow(QMainWindow):
             self.ui.gridLayoutWidget.show() # pairs_layout
         else:
             self.ui.verticalLayoutWidget.show()  # choose_layout
-        self.ui.option_1.setStyleSheet('background: #c8c8c8; border: 1px solid #c8c8c8;padding: 6px;')
-        self.ui.option_2.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 6px;')
-        self.ui.option_3.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 6px;')
-        self.ui.option_4.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 6px;')
+        self.ui.option_1.setStyleSheet('background: #c8c8c8; border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
+        self.ui.option_2.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
+        self.ui.option_3.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
+        self.ui.option_4.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
         for i in self.pairs_btn_list:
             i.setMinimumHeight(int(self.ui.gridLayoutWidget.height()*0.23))
             #i.setMaximumHeight(int(self.ui.gridLayoutWidget.height()*0.25))
@@ -238,35 +247,35 @@ class mywindow(QMainWindow):
 
     def choosed_option_1(self):
         if self.right_ans == 0:
-            self.ui.option_1.setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 6px;')
+            self.ui.option_1.setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
             self.ui.ex_info.setText(sheets[self.unit][self.ex_col + self.cell_num].value)
             self.ui.nextq.show()
         else:
-            self.ui.option_1.setStyleSheet('background: red;border: 1px solid red;padding: 6px;')
+            self.ui.option_1.setStyleSheet('background: red;border: 1px solid red;padding: 3px; margin: 2px;;')
 
     def choosed_option_2(self):
         if self.right_ans == 1:
-            self.ui.option_2.setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 6px;')
+            self.ui.option_2.setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
             self.ui.ex_info.setText(sheets[self.unit][self.ex_col + self.cell_num].value)
             self.ui.nextq.show()
         else:
-            self.ui.option_2.setStyleSheet('background: rgb(255,0,0);border: 1px solid red;padding: 6px;')
+            self.ui.option_2.setStyleSheet('background: rgb(255,0,0);border: 1px solid red;padding: 3px; margin: 2px;;')
 
     def choosed_option_3(self):
         if self.right_ans == 2:
-            self.ui.option_3.setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 6px;')
+            self.ui.option_3.setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
             self.ui.ex_info.setText(sheets[self.unit][self.ex_col + self.cell_num].value)
             self.ui.nextq.show()
         else:
-            self.ui.option_3.setStyleSheet('background: rgb(255,0,0);border: 1px solid red;padding: 6px;')
+            self.ui.option_3.setStyleSheet('background: rgb(255,0,0);border: 1px solid red;padding: 3px; margin: 2px;;')
 
     def choosed_option_4(self):
         if self.right_ans == 3:
-            self.ui.option_4.setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 6px;')
+            self.ui.option_4.setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
             self.ui.ex_info.setText(sheets[self.unit][self.ex_col + self.cell_num].value)
             self.ui.nextq.show()
         else:
-            self.ui.option_4.setStyleSheet('background: rgb(255,0,0);border: 1px solid red;padding: 6px;')
+            self.ui.option_4.setStyleSheet('background: rgb(255,0,0);border: 1px solid red;padding: 3px; margin: 2px;;')
 
 
 if __name__ == '__main__':
