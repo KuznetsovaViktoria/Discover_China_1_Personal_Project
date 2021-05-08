@@ -311,6 +311,170 @@
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>19</y>
+      <width>361</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="menu1_layout">
+     <item row="2" column="2">
+      <widget class="QPushButton" name="btn_unit9">
+       <property name="text">
+        <string>Unit 9</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="btn_unit3">
+       <property name="text">
+        <string>Unit 3</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="btn_unit11">
+       <property name="text">
+        <string>Unit 11</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="btn_unit1">
+       <property name="text">
+        <string>Unit 1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="btn_unit7">
+       <property name="text">
+        <string>Unit 7</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="btn_unit5">
+       <property name="text">
+        <string>Unit 5</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="btn_unit8">
+       <property name="text">
+        <string>Unit 8</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="btn_unit6">
+       <property name="text">
+        <string>Unit 6</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="btn_unit10">
+       <property name="text">
+        <string>Unit 10</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="btn_unit12">
+       <property name="text">
+        <string>Unit 12</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="btn_unit4">
+       <property name="text">
+        <string>Unit 4</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="btn_unit2">
+       <property name="text">
+        <string>Unit 2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QPushButton" name="btn_rad">
+       <property name="text">
+        <string>Radicals</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="btn_all">
+       <property name="text">
+        <string>All units</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="btn_random">
+       <property name="text">
+        <string>Random unit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>19</y>
+      <width>361</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="menu2_layout">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pinyin_btn">
+       <property name="text">
+        <string>Choose pinyin</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="char_btn">
+       <property name="text">
+        <string>Choose character</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="tran_btn">
+       <property name="text">
+        <string>Choose translation</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pairs_btn">
+       <property name="text">
+        <string>Make pairs</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="back_btn">
+       <property name="text">
+        <string>Back</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
