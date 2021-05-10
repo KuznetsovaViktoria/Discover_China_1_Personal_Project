@@ -1,8 +1,8 @@
 from random import *
 import PyQt5
-from PyQt5 import QtCore, QtGui, Qt
+from PyQt5 import QtCore, QtGui, Qt, QtWidgets
 from PyQt5.QtCore import QSize
-from PyQt5.QtGui import QFont, QPalette, QImage, QBrush
+from PyQt5.QtGui import QFont
 
 from mydesignDONOTCHANGE import Ui_MainWindow
 import sys
@@ -35,12 +35,6 @@ class mywindow(QMainWindow):
         super(mywindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        '''oImage = QImage("background.jpg")
-        sImage = oImage.scaled(QSize(self.height(), self.width()))
-        palette = QPalette()
-        palette.setBrush(QPalette.Window, QBrush(sImage))
-        self.setPalette(palette)'''
-        #self.setStyleSheet('.QWidget {background-image: url(background.jpg);}')
         self.question_list = [self.ui.question, self.ui.ex_info, self.ui.option_1, self.ui.option_2, self.ui.option_3,
                               self.ui.option_4]
         self.pairs_btn_list = [self.ui.btn1, self.ui.btn2, self.ui.btn3, self.ui.btn4, self.ui.btn5, self.ui.btn6,
@@ -48,7 +42,7 @@ class mywindow(QMainWindow):
         self.menu1_btn_list = [self.ui.btn_unit1, self.ui.btn_unit2, self.ui.btn_unit3, self.ui.btn_unit4,
                                self.ui.btn_unit5, self.ui.btn_unit6, self.ui.btn_unit7, self.ui.btn_unit8,
                                self.ui.btn_unit9, self.ui.btn_unit10, self.ui.btn_unit11, self.ui.btn_unit12,
-                               self.ui.btn_rad, self.ui.btn_all, self.ui.btn_random]
+                               self.ui.btn_rad, self.ui.btn_all]
         self.menu2_btn_list = [self.ui.pinyin_btn, self.ui.char_btn, self.ui.tran_btn, self.ui.pairs_btn,
                                self.ui.back_btn]
         self.made_pairs = []   # what pairs has been made in pair mode
@@ -60,11 +54,10 @@ class mywindow(QMainWindow):
         self.q_col = 'A'  # column in the excel table, from where we take questions, depends on the choosed mode
         self.a_col = 'B'  # column in the excel table, from where we take answers, depends on the choosed mode
         self.ex_col = 'C'  # the third column to show full information about the word after the right answer
-        self.ui.nextq.setStyleSheet('background: #86f353; border: 1px solid #86f353;padding: 3px; margin: 2px;;')
+        self.ui.nextq.setStyleSheet('background: #86f353; border: 1px solid #86f353;padding: 3px; margin: 2px;')
+        self.ui.nextq.setFont(QFont("Calibri", 18))
         #self.ui.centralwidget.setStyleSheet('background: white')
-        self.ui.question.setFont(QFont('SimSun', 24))
-        for i in self.question_list[1:]:
-            i.setFont(QFont('SimSun', 18))
+        self.set_font_size()
 
         self.ui.question.adjustSize()
         self.ui.ex_info.adjustSize()
@@ -92,15 +85,18 @@ class mywindow(QMainWindow):
         self.ui.option_3.clicked.connect(self.choosed_option_3)
         self.ui.option_4.clicked.connect(self.choosed_option_4)
         self.ui.nextq.clicked.connect(self.next_question)
-        self.ui.play_btn.clicked.connect(self.start_playing)
-        self.ui.choose_mode.activated[str].connect(self.onActivated_choosing_mode)
+        #self.ui.play_btn.clicked.connect(self.start_playing)
+        #self.ui.choose_mode.activated[str].connect(self.set_mode)
         for i in range(12):
             self.pairs_btn_list[i].clicked.connect(partial(self.btn_pair_mode_been_clicked, i))
-        for i in range(15):
+        for i in range(14):
             self.menu1_btn_list[i].clicked.connect(partial(self.menu1_clicked, i))
+            self.menu1_btn_list[i].setFont(QFont('Calibri Light', 15))
         for i in range(5):
-            self.menu2_btn_list[i].clicked.connect(partial(self.menu2_clicked, self.menu2_btn_list[i].text))
-
+            self.menu2_btn_list[i].clicked.connect(partial(self.menu2_clicked, self.menu2_btn_list[i].text()))
+            self.menu2_btn_list[i].setFont(QFont('Calibri Light', 13))
+        #for i in (self.menu2_btn_list+self.menu1_btn_list):
+         #   i.setStyleSheet("border: 1px solid #86f353;")
         self.beginning()
         self.setWindowTitle("Discover China 1")
         self.resize(550, 600)
@@ -123,18 +119,15 @@ class mywindow(QMainWindow):
         self.ui.menu1_layout_widget.hide()
 
     def menu2_clicked(self, t):
-        print(t)
         if t != 'Back':
-            self.onActivated_choosing_mode(t)
+            self.set_mode(t)
+            self.start_playing()
         else:
             self.beginning()
 
     def start_playing(self):
-        '''if self.mode == "Choose radicals":
-            self.unit = 12
-        else:
-            self.unit = int(self.ui.choose_unit.value()) - 1'''
-        self.ui.main_menu_layout_widget.hide()
+        self.ui.menu2_layout_widget.hide()
+        self.set_font_size()
         if self.mode == "Make pairs":
             self.ui.pairs_layout_widget.show()
             self.new_pair_question()
@@ -157,14 +150,18 @@ class mywindow(QMainWindow):
         self.ui.choose_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.66)))
         self.ui.pairs_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.63)))
         self.ui.menu1_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.75)))
-        self.ui.menu2_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.75)))
+        self.ui.menu2_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.5)))
 
         for w in self.question_list:
             w.setMinimumSize(QtCore.QSize(0, int(self.height()*0.1)))
+        for w in self.menu1_btn_list:
+            w.setMinimumSize(QtCore.QSize(0, int(self.height()*0.13)))
+        for w in self.menu2_btn_list:
+            w.setMinimumSize(QtCore.QSize(0, int(self.height()*0.13)))
         self.ui.nextq.setGeometry(QtCore.QRect(1, int(self.height()*0.7), self.width(), int(self.height()*0.11)))
 
 
-    def onActivated_choosing_mode(self, mode):
+    def set_mode(self, mode):
         if mode == "Choose pinyin":
             self.mode = "Choose pinyin"
             self.q_col = 'A'
@@ -175,7 +172,6 @@ class mywindow(QMainWindow):
             self.q_col = 'C'
             self.a_col = 'A'
             self.ex_col = 'B'
-
         elif mode == "Choose translation":
             self.mode = "Choose translation"
             self.q_col = 'A'
@@ -183,15 +179,16 @@ class mywindow(QMainWindow):
             self.ex_col = 'B'
         elif mode == "Make pairs":
             self.mode = "Make pairs"
-        elif mode == "Choose radicals":
-            self.mode = "Choose radicals"
-            self.q_col = 'A'
-            self.a_col = 'C'
-            self.ex_col = 'B'
-            for i in self.question_list[2:]:
+
+    def set_font_size(self):
+        if self.unit == 12:
+            for i in self.question_list:
                 i.setFont(QFont('Calibri', 14))
-        if mode != "Choose radicals":
-            for i in self.question_list[2:]:
+            for i in self.pairs_btn_list:
+                i.setFont(QFont('Calibri', 14))
+        else:
+            self.ui.question.setFont(QFont('SimSun', 24))
+            for i in self.question_list[1:]:
                 i.setFont(QFont('SimSun', 18))
 
     def hide_question(self):
@@ -221,9 +218,7 @@ class mywindow(QMainWindow):
             self.pairs_btn_list[i[1]].setText(sheets[self.unit]['C' + str(a[o])].value)
             o+=1
             self.pairs_btn_list[i[0]].setFont(QFont('SimSun', 24))
-            self.pairs_btn_list[i[1]].setFont(QFont('SimSun', 20 - int(0.6*len(self.pairs_btn_list[i[1]].text()))))
-            #self.pairs_btn_list[i[0]].styleSheet('font-weight: normal')
-            #self.pairs_btn_list[i[1]].styleSheet('font-weight: bold')
+            self.pairs_btn_list[i[1]].setFont(QFont('Calibri', 20 - int(0.5*len(self.pairs_btn_list[i[1]].text()))))
 
     def check_pair(self):
         a = self.pair_mode_clicked_btns[0]
@@ -329,7 +324,6 @@ if __name__ == '__main__':
     start_excel()
     app = QApplication([])
     app.setStyle('Fusion')
-    #print(PyQt5.QtWidgets.QStyleFactory.keys())
     application = mywindow()
     application.show()
 
