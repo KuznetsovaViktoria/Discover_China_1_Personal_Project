@@ -1,7 +1,5 @@
 from random import *
-import PyQt5
-from PyQt5 import QtCore, QtGui, Qt, QtWidgets
-from PyQt5.QtCore import QSize
+from PyQt5 import QtCore
 from PyQt5.QtGui import QFont
 
 from mydesignDONOTCHANGE import Ui_MainWindow
@@ -14,7 +12,7 @@ from threading import Timer
 
 def start_excel():
     global sheets
-    wb = openpyxl.load_workbook(filename="C:\Programming\Discover China\Discover China 1 all vocabulary.xlsx")
+    wb = openpyxl.load_workbook(filename="xl/data.xlsx")
     sheets = [wb['unit 1'], wb['unit 2'], wb['unit 3'], wb['unit 4'], wb['unit 5'], wb['unit 6'],
               wb['unit 7'], wb['unit 8'], wb['unit 9'], wb['unit 10'], wb['unit 11'], wb['unit 12'], wb['radicals']]
 
@@ -56,7 +54,6 @@ class mywindow(QMainWindow):
         self.ex_col = 'C'  # the third column to show full information about the word after the right answer
         self.ui.nextq.setStyleSheet('background: #86f353; border: 1px solid #86f353;padding: 3px; margin: 2px;')
         self.ui.nextq.setFont(QFont("Calibri", 18))
-        #self.ui.centralwidget.setStyleSheet('background: white')
         self.set_font_size()
 
         self.ui.question.adjustSize()
@@ -95,8 +92,19 @@ class mywindow(QMainWindow):
         for i in range(5):
             self.menu2_btn_list[i].clicked.connect(partial(self.menu2_clicked, self.menu2_btn_list[i].text()))
             self.menu2_btn_list[i].setFont(QFont('Calibri Light', 13))
-        #for i in (self.menu2_btn_list+self.menu1_btn_list):
-         #   i.setStyleSheet("border: 1px solid #86f353;")
+        #self.ui.menu1_layout_widget.setStyleSheet('margin-left: 5%;')
+        '''self.menu1_btn_list = [self.ui.btn_unit1, self.ui.btn_unit2, self.ui.btn_unit3, self.ui.btn_unit4,
+                               self.ui.btn_unit5, self.ui.btn_unit6, self.ui.btn_unit7, self.ui.btn_unit8,
+                               self.ui.btn_unit9, self.ui.btn_unit10, self.ui.btn_unit11, self.ui.btn_unit12,
+                               self.ui.btn_rad, self.ui.btn_all]
+        self.menu2_btn_list = [self.ui.pinyin_btn, self.ui.char_btn, self.ui.tran_btn, self.ui.pairs_btn,
+                               self.ui.back_btn]'''
+        for i in [self.ui.btn_unit1, self.ui.btn_unit4,self.ui.btn_unit7, self.ui.btn_unit10, self.ui.btn_rad,
+                  self.ui.pinyin_btn, self.ui.tran_btn, self.ui.back_btn]:
+            i.setStyleSheet("margin-left: 8%;")
+        for i in [self.ui.btn_unit3, self.ui.btn_unit6, self.ui.btn_unit9, self.ui.btn_unit12, self.ui.btn_all,
+                  self.ui.char_btn, self.ui.pairs_btn]:
+            i.setStyleSheet("margin-right: 8%;")
         self.beginning()
         self.setWindowTitle("Discover China 1")
         self.resize(550, 600)
