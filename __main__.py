@@ -43,8 +43,8 @@ class mywindow(QMainWindow):
                                self.ui.btn_rad, self.ui.btn_all]
         self.menu2_btn_list = [self.ui.pinyin_btn, self.ui.char_btn, self.ui.tran_btn, self.ui.pairs_btn,
                                self.ui.back_btn]
-        self.made_pairs = []   # what pairs has been made in pair mode
-        self.pair_mode_clicked_btns = []    # what buttons has been clicked in pair mode
+        self.made_pairs = []  # what pairs has been made in pair mode
+        self.pair_mode_clicked_btns = []  # what buttons has been clicked in pair mode
         self.cell_num = 0  # cell number with the right answer
         self.right_ans = None  # the answer
         self.unit = 1  # choosed unit
@@ -82,8 +82,6 @@ class mywindow(QMainWindow):
         self.ui.option_3.clicked.connect(self.choosed_option_3)
         self.ui.option_4.clicked.connect(self.choosed_option_4)
         self.ui.nextq.clicked.connect(self.next_question)
-        #self.ui.play_btn.clicked.connect(self.start_playing)
-        #self.ui.choose_mode.activated[str].connect(self.set_mode)
         for i in range(12):
             self.pairs_btn_list[i].clicked.connect(partial(self.btn_pair_mode_been_clicked, i))
         for i in range(14):
@@ -92,14 +90,7 @@ class mywindow(QMainWindow):
         for i in range(5):
             self.menu2_btn_list[i].clicked.connect(partial(self.menu2_clicked, self.menu2_btn_list[i].text()))
             self.menu2_btn_list[i].setFont(QFont('Calibri Light', 13))
-        #self.ui.menu1_layout_widget.setStyleSheet('margin-left: 5%;')
-        '''self.menu1_btn_list = [self.ui.btn_unit1, self.ui.btn_unit2, self.ui.btn_unit3, self.ui.btn_unit4,
-                               self.ui.btn_unit5, self.ui.btn_unit6, self.ui.btn_unit7, self.ui.btn_unit8,
-                               self.ui.btn_unit9, self.ui.btn_unit10, self.ui.btn_unit11, self.ui.btn_unit12,
-                               self.ui.btn_rad, self.ui.btn_all]
-        self.menu2_btn_list = [self.ui.pinyin_btn, self.ui.char_btn, self.ui.tran_btn, self.ui.pairs_btn,
-                               self.ui.back_btn]'''
-        for i in [self.ui.btn_unit1, self.ui.btn_unit4,self.ui.btn_unit7, self.ui.btn_unit10, self.ui.btn_rad,
+        for i in [self.ui.btn_unit1, self.ui.btn_unit4, self.ui.btn_unit7, self.ui.btn_unit10, self.ui.btn_rad,
                   self.ui.pinyin_btn, self.ui.tran_btn, self.ui.back_btn]:
             i.setStyleSheet("margin-left: 8%;")
         for i in [self.ui.btn_unit3, self.ui.btn_unit6, self.ui.btn_unit9, self.ui.btn_unit12, self.ui.btn_all,
@@ -155,19 +146,18 @@ class mywindow(QMainWindow):
 
     def resizing(self):
         self.ui.main_menu_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), self.height()))
-        self.ui.choose_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.66)))
-        self.ui.pairs_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.63)))
-        self.ui.menu1_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.75)))
-        self.ui.menu2_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height()*0.5)))
+        self.ui.choose_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height() * 0.66)))
+        self.ui.pairs_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height() * 0.63)))
+        self.ui.menu1_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height() * 0.75)))
+        self.ui.menu2_layout_widget.setGeometry(QtCore.QRect(0, 20, self.width(), int(self.height() * 0.5)))
 
         for w in self.question_list:
-            w.setMinimumSize(QtCore.QSize(0, int(self.height()*0.1)))
+            w.setMinimumSize(QtCore.QSize(0, int(self.height() * 0.1)))
         for w in self.menu1_btn_list:
-            w.setMinimumSize(QtCore.QSize(0, int(self.height()*0.13)))
+            w.setMinimumSize(QtCore.QSize(0, int(self.height() * 0.13)))
         for w in self.menu2_btn_list:
-            w.setMinimumSize(QtCore.QSize(0, int(self.height()*0.13)))
-        self.ui.nextq.setGeometry(QtCore.QRect(1, int(self.height()*0.7), self.width(), int(self.height()*0.11)))
-
+            w.setMinimumSize(QtCore.QSize(0, int(self.height() * 0.13)))
+        self.ui.nextq.setGeometry(QtCore.QRect(1, int(self.height() * 0.7), self.width(), int(self.height() * 0.11)))
 
     def set_mode(self, mode):
         if mode == "Choose pinyin":
@@ -215,7 +205,7 @@ class mywindow(QMainWindow):
         while len(a) < 6:
             if sheets[self.unit]['A' + str(b[i])].value != None:
                 a.append(b[i])
-            i+=1
+            i += 1
         b = [i for i in range(12)]
         shuffle(b)
         b = [[b[0], b[1]], [b[2], b[3]], [b[4], b[5]], [b[6], b[7]], [b[8], b[9]], [b[10], b[11]]]
@@ -224,9 +214,9 @@ class mywindow(QMainWindow):
         for i in self.right_ans:
             self.pairs_btn_list[i[0]].setText(sheets[self.unit]['A' + str(a[o])].value)
             self.pairs_btn_list[i[1]].setText(sheets[self.unit]['C' + str(a[o])].value)
-            o+=1
+            o += 1
             self.pairs_btn_list[i[0]].setFont(QFont('SimSun', 24))
-            self.pairs_btn_list[i[1]].setFont(QFont('Calibri', 20 - int(0.5*len(self.pairs_btn_list[i[1]].text()))))
+            self.pairs_btn_list[i[1]].setFont(QFont('Calibri', 20 - int(0.5 * len(self.pairs_btn_list[i[1]].text()))))
 
     def check_pair(self):
         a = self.pair_mode_clicked_btns[0]
@@ -234,8 +224,10 @@ class mywindow(QMainWindow):
         if [a, b] in self.right_ans or [b, a] in self.right_ans:
             self.made_pairs.append(a)
             self.made_pairs.append(b)
-            self.pairs_btn_list[a].setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
-            self.pairs_btn_list[b].setStyleSheet('background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
+            self.pairs_btn_list[a].setStyleSheet(
+                'background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
+            self.pairs_btn_list[b].setStyleSheet(
+                'background: #86f353;border: 1px solid #86f353;padding: 3px; margin: 2px;;')
             self.pairs_btn_list[a].setEnabled(False)
             self.pairs_btn_list[b].setEnabled(False)
         else:
@@ -248,15 +240,18 @@ class mywindow(QMainWindow):
 
     def pair_mode_change_btn_color_to_white(self, *n):
         for i in n:
-            self.pairs_btn_list[i].setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
+            self.pairs_btn_list[i].setStyleSheet(
+                'background: #c8c8c8;border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
 
     def btn_pair_mode_been_clicked(self, n):
         if self.pair_mode_clicked_btns == []:
             self.pair_mode_clicked_btns.append(n)
-            self.pairs_btn_list[n].setStyleSheet('background: #c8c8c8;border: 2px solid black;padding: 3px; margin: 2px;;')
+            self.pairs_btn_list[n].setStyleSheet(
+                'background: #c8c8c8;border: 2px solid black;padding: 3px; margin: 2px;;')
         elif self.pair_mode_clicked_btns == [n]:
             self.pair_mode_clicked_btns = []
-            self.pairs_btn_list[n].setStyleSheet('background: #c8c8c8;border: 2px solid #c8c8c8;padding: 3px; margin: 2px;;')
+            self.pairs_btn_list[n].setStyleSheet(
+                'background: #c8c8c8;border: 2px solid #c8c8c8;padding: 3px; margin: 2px;;')
         else:
             self.pair_mode_clicked_btns.append(n)
             self.check_pair()
@@ -272,8 +267,8 @@ class mywindow(QMainWindow):
         self.ui.option_3.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
         self.ui.option_4.setStyleSheet('background: #c8c8c8;border: 1px solid #c8c8c8;padding: 3px; margin: 2px;;')
         for i in self.pairs_btn_list:
-            i.setMinimumHeight(int(self.ui.pairs_layout_widget.height()*0.23))
-            i.setMinimumWidth(int(self.ui.pairs_layout_widget.width()*0.3))
+            i.setMinimumHeight(int(self.ui.pairs_layout_widget.height() * 0.23))
+            i.setMinimumWidth(int(self.ui.pairs_layout_widget.width() * 0.3))
             i.setStyleSheet('background: #c8c8c8; border: 1px solid #c8c8c8;margin: 1px;')
             i.setEnabled(True)
         self.ui.nextq.hide()
